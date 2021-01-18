@@ -1,0 +1,56 @@
+G:\e\work\test\MyJniDemo\app\src\main\java>javac com\example\myjnidemo\LameUtils.java
+
+G:\e\work\test\MyJniDemo\app\src\main\java>javap -s -p com.example.myjnidemo.LameUtils
+Compiled from "LameUtils.java"
+public class com.example.myjnidemo.LameUtils {
+  public com.example.myjnidemo.LameUtils();
+    descriptor: ()V
+
+  public static native void convertmp3(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public static native java.lang.String getLameVersion();
+    descriptor: ()Ljava/lang/String;
+
+  public static void setConvertProgress(int);
+    descriptor: (I)V
+
+  public static void convertFinish(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+}
+
+G:\e\work\test\MyJniDemo\app\src\main\java>
+
+
+E:\work\test\MyMp3Convert\app\src\main\java>javah -classpath . com.convert.mp3.ConvertUtil
+
+
+E:\work\test\MyMp3Convert\app\src\main\java>javac -encoding UTF-8 com\convert\mp3\Mp3ConvertUtil.java
+
+E:\work\test\MyMp3Convert\app\src\main\java>javap -s -p  com\convert\mymp3convert\Mp3ConvertUtil.class
+Compiled from "Mp3ConvertUtil.java"
+public class com.convert.mymp3convert.Mp3ConvertUtil {
+  public com.convert.mymp3convert.Mp3ConvertUtil();
+    descriptor: ()V
+
+  public static native java.lang.String hello(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/String;
+
+  public static native java.lang.String getLameVer();
+    descriptor: ()Ljava/lang/String;
+
+  public static native void convertmp3(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void setConvertProgress(int);
+    descriptor: (I)V
+
+  public static void convertFinish(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public static void convertError(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  static {};
+    descriptor: ()V
+}

@@ -1,0 +1,102 @@
+//plugins {
+//    id 'com.android.application'
+//}
+if(isAppLibrary.toBoolean()){
+    apply plugin: 'com.android.library'
+}else {
+    apply plugin: 'com.android.application'
+}
+
+android {
+    externalNativeBuild { cmake { version "3.10.2" } }
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+
+        if(!isAppLibrary.toBoolean()){
+            applicationId "com.convert.mymp3convert"
+        }
+
+        minSdkVersion 18
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                // 指定一些编译选项
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                cFlags "-DSTDC_HEADERS"
+                abiFilters 'armeabi-v7a','arm64-v8a','x86'//'armeabi',
+            }
+        }
+        ndk{
+            //moduleName"hello"       //生成的so文件名字，调用C程序的代码中会用到该名字
+            abiFilters 'armeabi-v7a','arm64-v8a' , 'x86'//,'arm64-v8a',  'x86_64'//'armeabi',
+        }
+        signingConfigs {
+            release {
+                storeFile file("key02.keystore")
+                storePassword "1qazxsw2"
+                keyAlias "key02"
+                keyPassword "1qazxsw2"
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    signingConfigs {
+        dev {
+            storeFile file('E:\\work\\keyStore\\demo\\key02.keystore')
+            storePassword '1qazxsw2'
+            keyAlias 'key02'
+            keyPassword '1qazxsw2'
+        }
+    }
+    sourceSets{
+        main{
+            if(isAppLibrary.toBoolean()){
+                manifest.srcFile 'src/main/library/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            jniDebuggable true
+            signingConfig signingConfigs.release
+        }
+        dev {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            jniDebuggable true
+            debuggable true
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
