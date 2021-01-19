@@ -40,13 +40,17 @@ public class MainActivity extends AppCompatActivity {
         Mp3ConvertUtil.convertmp3(path,pathTaret);
     }
     public void convertByHelper01(View v){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out.wav";//"temp/test123.wav";
-        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out456.mp3";
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out.wav";//"temp/test123.wav";
+//        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out456.mp3";
+//        Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
+
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";//"temp/test123.wav";
+        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
         Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
     }
     public void convertByHelper02(View v){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out.wav";//"temp/test123.wav";
-        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out789.mp3";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/测试out.wav";//"temp/test123.wav";
+        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/测试out789.mp3";
         Mp3ConvertUtilHelper.convertmp3(path, pathTaret, new Mp3ConvertUtil.ConvertListener() {
             @Override
             public void notifyConvertProgress(int progress) {

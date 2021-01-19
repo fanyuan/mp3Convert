@@ -202,9 +202,9 @@ JNIEXPORT jstring JNICALL Java_com_convert_mymp3convert_Mp3ConvertUtil_hello
     convertFinish(env,jstr);
     env->DeleteLocalRef(jstr);
 
-//    jstring msg = env->NewStringUTF("xxx原因导致了未转换成功");
-//    convertError(env,  msg, msg);
-//    env->DeleteLocalRef(msg);
+    jstring msg = env->NewStringUTF("xxx原因导致了未转换成功");
+    convertError(env,  msg, msg);
+    env->DeleteLocalRef(msg);
 
     LOGD("lame ver = %s",get_lame_very_short_version());
     LOGI("convertmp3   %S  ===  %S","wav","mp3");
@@ -239,10 +239,16 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_getLameVer(JNIEnv *env, jclass obj)
 JNIEXPORT void JNICALL
 Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj, jstring wav,jstring mp3) {
 
-    char* cwav =Jstring2CStr(env,wav) ;
-    char* cmp3=Jstring2CStr(env,mp3);
+    char* cwav = const_cast<char *>(env->GetStringUTFChars(wav, JNI_FALSE));//Jstring2CStr(env,wav) ;
+    char* cmp3= const_cast<char *>(env->GetStringUTFChars(mp3, JNI_FALSE));//Jstring2CStr(env,mp3);
     LOGI("wav = %s", cwav);
     LOGI("mp3 = %s", cmp3);
+
+    char buf[2048] = {};
+
+    sprintf(buf, "source：%s，target：%s ", (*env).GetStringUTFChars(wav,JNI_FALSE),
+            (*env).GetStringUTFChars(mp3,JNI_FALSE));
+    LOGD(buf,NULL);
 
     if(access(env->GetStringUTFChars(wav,JNI_FALSE),F_OK) == -1){
         free(cwav);
@@ -272,7 +278,7 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
     LOGI("lame init finish");
 
     int read ; int write; //代表读了多少个次 和写了多少次
-    int total=0; // 当前读的wav文件的byte数目
+    long long total=0; // 当前读的wav文件的byte数目
 
     int fileSize = file_size(cwav);
     LOGD("FILE SIZE = %d",fileSize);
