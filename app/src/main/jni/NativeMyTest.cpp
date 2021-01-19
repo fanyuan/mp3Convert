@@ -19,6 +19,7 @@ jstring jstrCat(JNIEnv *env,char * cstr,jstring jstr){
     strcat(bf, c);
     jstring  js = env->NewStringUTF(bf);
     delete [] bf;
+    (*env).ReleaseStringUTFChars(jstr,c);
     return js;
 }
 /*
@@ -33,10 +34,12 @@ extern "C" JNIEXPORT jstring JNICALL Java_com_convert_mymp3convert_MyTest_test
     char *c1 = "即将转换：";
     jstring mp3 = env->NewStringUTF("mp3");
     char *c2 = (char *) (env->GetStringUTFChars(mp3, JNI_FALSE));
+    env->ReleaseStringUTFChars(mp3,c2);
     //2、再使用本地函数strcat 拼接两个char*对象，然后NewStringUTF转为jstring返回去
     jstring  res = jstrCat(env,c1,mp3);//strcat(c1, c2);
-    //nativeLog(env,res);
-    env->DeleteLocalRef(res);
+    jstring jstr = res;//env->NewStringUTF(res);
+    //convertLog(env,jstr);
+    env->DeleteLocalRef(jstr);
 
     return env->NewStringUTF(get_lame_very_short_version());
 }
