@@ -330,7 +330,7 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
     env->ReleaseStringUTFChars(mp3,cmp3);
 
     convertFinish(env,mp3);
-    LOGI("convert finish");
+    LOGI("convert  finish");
 
 }
 

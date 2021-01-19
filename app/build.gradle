@@ -29,12 +29,12 @@ android {
                 // 指定一些编译选项
                 cppFlags "-std=c++11 -frtti -fexceptions"
                 cFlags "-DSTDC_HEADERS"
-                abiFilters 'armeabi-v7a','arm64-v8a','x86'//'armeabi',
+                abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'//'armeabi',
             }
         }
         ndk{
             //moduleName"hello"       //生成的so文件名字，调用C程序的代码中会用到该名字
-            abiFilters 'armeabi-v7a','arm64-v8a' , 'x86'//,'arm64-v8a',  'x86_64'//'armeabi',
+            abiFilters 'armeabi-v7a','arm64-v8a' , 'x86','x86_64'//,'armeabi',
         }
         signingConfigs {
             release {
