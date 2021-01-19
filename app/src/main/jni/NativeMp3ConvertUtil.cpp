@@ -181,7 +181,7 @@ jstring jstrCat(JNIEnv *env,char * cstr,jstring jstr){
  * @param filename
  * @return
  */
-int file_size(char* filename){
+long long file_size(char* filename){
     struct stat statbuf;
     stat(filename,&statbuf);
     return statbuf.st_size;
@@ -260,12 +260,22 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
         env->DeleteLocalRef(msg);
         return;
     }
+    long long fileSize = file_size(cwav);
+    if (fileSize == 0) {
+        free(cwav);
+        free(cmp3);
+        jstring msg = jstrCat(env,"转换源文件大小为0:",mp3);
+        nativeLog(env, msg);
+        convertError(env,msg,mp3);
+        env->DeleteLocalRef(msg);
+        return;
+    }
     //1.打开 wav,MP3文件
     FILE* fwav = fopen(cwav,"rb");
     FILE* fmp3 = fopen(cmp3,"wb");
 
-    short int wav_buffer[8192*2];
-    unsigned char mp3_buffer[8192];
+    short int wav_buffer[8192*2]= {};
+    unsigned char mp3_buffer[8192] = {};
 
     //1.初始化lame的编码器
     lame_t lame =  lame_init();
@@ -280,7 +290,6 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
     int read ; int write; //代表读了多少个次 和写了多少次
     long long total=0; // 当前读的wav文件的byte数目
 
-    int fileSize = file_size(cwav);
     LOGD("FILE SIZE = %d",fileSize);
     int progress = 0;
     do{
@@ -305,17 +314,20 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
             fwrite(mp3_buffer,sizeof(unsigned char),write,fmp3);
         }
         if(read==0){
-            lame_encode_flush(lame,mp3_buffer,8192);
+            write = lame_encode_flush(lame,mp3_buffer,8192);
+            fwrite(mp3_buffer,sizeof(unsigned char),write,fmp3);
         }
     }while(read!=0);
 
-    convertFinish(env,mp3);
-    LOGI("convert  finish");
     lame_close(lame);
     fclose(fwav);
     fclose(fmp3);
     free(cwav);
     free(cmp3);
+
+    convertFinish(env,mp3);
+    LOGI("convert  finish");
+
 }
 
 

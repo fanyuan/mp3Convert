@@ -1,14 +1,14 @@
 package com.convert.mymp3convert;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 
@@ -44,28 +44,43 @@ public class MainActivity extends AppCompatActivity {
 //        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out456.mp3";
 //        Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
 
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";//"temp/test123.wav";
-        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
-        Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
+        new Thread(){
+            @Override
+            public void run() {
+
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";//"temp/test123.wav";
+                String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
+                Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
+
+            }
+        }.start();
     }
     public void convertByHelper02(View v){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/测试out.wav";//"temp/test123.wav";
-        String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/测试out789.mp3";
-        Mp3ConvertUtilHelper.convertmp3(path, pathTaret, new Mp3ConvertUtil.ConvertListener() {
+        new Thread(){
             @Override
-            public void notifyConvertProgress(int progress) {
-                Log.d("ddebug","convertByHelper02 --- notifyConvertProgress = " + progress);
-            }
+            public void run() {
 
-            @Override
-            public void convertFinish() {
-                Log.d("ddebug","convertByHelper02 --- convertFinish");
-            }
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试.wav";//"temp/test123.wav";
+                String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试789.mp3";
+                Mp3ConvertUtilHelper.convertmp3(path, pathTaret, new Mp3ConvertUtil.ConvertListener() {
+                    @Override
+                    public void notifyConvertProgress(int progress) {
+                        Log.d("ddebug","convertByHelper02 --- notifyConvertProgress = " + progress);
+                    }
 
-            @Override
-            public void convertError(String errorMsg) {
-                Log.d("ddebug","convertByHelper02 --- convertError --- " + errorMsg);
+                    @Override
+                    public void convertFinish() {
+                        Log.d("ddebug","convertByHelper02 --- convertFinish");
+                    }
+
+                    @Override
+                    public void convertError(String errorMsg) {
+                        Log.d("ddebug","convertByHelper02 --- convertError --- " + errorMsg);
+                    }
+                });
+
             }
-        });
+        }.start();
+
     }
 }
