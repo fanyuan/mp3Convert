@@ -96,7 +96,9 @@ void convertFinish(JNIEnv * env, jstring mp3Path) {
         LOGI("can't find clazz");
         return;
     }
-    LOGI(" convert finished %s" , env->GetStringUTFChars(mp3Path,JNI_FALSE));
+    const char *c = env->GetStringUTFChars(mp3Path, JNI_FALSE);
+    LOGI(" convert finished %s" , c);
+    env->ReleaseStringUTFChars(mp3Path,c);
 
     //2 找到class 里面的方法定义
     jmethodID methodid = (*env).GetStaticMethodID(clazz,"convertFinish","(Ljava/lang/String;)V");
@@ -120,7 +122,10 @@ void convertError(JNIEnv * env,jstring msg,jstring mp3Path) {
         LOGI("can't find clazz");
         return;
     }
-    LOGI(" convert error %s" , (*env).GetStringUTFChars(mp3Path,JNI_FALSE));
+
+    const char *c = (*env).GetStringUTFChars(mp3Path, JNI_FALSE);
+    LOGI(" convert error %s" , c);
+    (*env).ReleaseStringUTFChars(mp3Path,c);
 
     //2 找到class 里面的方法定义
 
@@ -174,6 +179,7 @@ jstring jstrCat(JNIEnv *env,char * cstr,jstring jstr){
     strcat(bf, c);
     jstring  js = env->NewStringUTF(bf);
     delete [] bf;
+    (*env).ReleaseStringUTFChars(jstr,c);
     return js;
 }
 /**
@@ -245,12 +251,10 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
     LOGI("mp3 = %s", cmp3);
 
     char buf[2048] = {};
-
-    sprintf(buf, "source：%s，target：%s ", (*env).GetStringUTFChars(wav,JNI_FALSE),
-            (*env).GetStringUTFChars(mp3,JNI_FALSE));
+    sprintf(buf, "source：%s，target：%s ", cwav,cmp3);
     LOGD(buf,NULL);
 
-    if(access(env->GetStringUTFChars(wav,JNI_FALSE),F_OK) == -1){
+    if(access(cwav,F_OK) == -1){
         free(cwav);
         free(cmp3);
         LOGD("转换源文件不存在");
@@ -322,8 +326,8 @@ Java_com_convert_mymp3convert_Mp3ConvertUtil_convertmp3(JNIEnv *env, jclass obj,
     lame_close(lame);
     fclose(fwav);
     fclose(fmp3);
-    free(cwav);
-    free(cmp3);
+    env->ReleaseStringUTFChars(wav,cwav);
+    env->ReleaseStringUTFChars(mp3,cmp3);
 
     convertFinish(env,mp3);
     LOGI("convert  finish");
