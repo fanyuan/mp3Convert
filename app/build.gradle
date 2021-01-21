@@ -6,7 +6,7 @@ if(isAppLibrary.toBoolean()){
 }else {
     apply plugin: 'com.android.application'
 }
-
+apply plugin: 'kotlin-android'
 android {
     externalNativeBuild { cmake { version "3.10.2" } }
     compileSdkVersion 30
@@ -96,6 +96,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
