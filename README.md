@@ -42,14 +42,14 @@ MyMp3Convert
      */
     public static int getProgress(String outPath)
 
- ======================================华丽丽的分割线===============================================================
+ =====================华丽丽的分割线==========================
  
 使用示例如下：
 
 温馨提示：使用时请在子线程中使用，为了演示方便直观就不过多封装了
 
 不带转换回调的使用示例：
-
+================================================
 new Thread(){
             @Override
             public void run() {
@@ -62,12 +62,13 @@ new Thread(){
         }.start();
         
 不带回调的获取转换进度的方式： 
-
+================================================
 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
 
 int progress = Mp3ConvertUtilHelper.getProgress(pathTaret);
 
 带转换回调的使用示例：
+================================================
 new Thread(){
             @Override
             public void run() {
@@ -95,6 +96,8 @@ new Thread(){
             }
 
         }.start();
+        
+        
 
 简单实用^_^
 
