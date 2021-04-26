@@ -64,6 +64,7 @@ new Thread(){
 不带回调的获取转换进度的方式： 
 
 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
+
 int progress = Mp3ConvertUtilHelper.getProgress(pathTaret);
 
 带转换回调的使用示例：
