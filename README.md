@@ -53,7 +53,6 @@ MyMp3Convert
 new Thread(){
             @Override
             public void run() {
-
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";
                 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
                 Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
@@ -71,7 +70,6 @@ int progress = Mp3ConvertUtilHelper.getProgress(pathTaret);
 new Thread(){
             @Override
             public void run() {
-
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试.wav";//"temp/test123.wav";
                 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试789.mp3";
                 Mp3ConvertUtilHelper.convertmp3(path, pathTaret, new Mp3ConvertUtil.ConvertListener() {
