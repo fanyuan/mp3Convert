@@ -11,8 +11,8 @@ public class Mp3ConvertUtilHelper {
 
     /**
      * wav转换成mp3
-     * @param wavInPath
-     * @param mp3OutPath
+     * @param wavInPath   需要转换的wav源文件输入路径
+     * @param mp3OutPath  转换完成后的mp3目标文件输出路径
      */
     public static void convertmp3(String wavInPath, String mp3OutPath){
         Mp3ConvertUtil.convertmp3(wavInPath,mp3OutPath);
@@ -20,9 +20,9 @@ public class Mp3ConvertUtilHelper {
 
     /**
      * wav转换成mp3
-     * @param wavInPath
-     * @param mp3OutPath
-     * @param callback
+     * @param wavInPath   需要转换的wav源文件输入路径
+     * @param mp3OutPath  转换完成后的mp3目标文件输出路径
+     * @param callback    转换相关的回调
      */
     public static void convertmp3(String wavInPath, String mp3OutPath, Mp3ConvertUtil.ConvertListener callback){
         Mp3ConvertUtil.registerCallback(mp3OutPath,callback);
@@ -30,7 +30,7 @@ public class Mp3ConvertUtilHelper {
     }
     /**
      * 获取转换进度
-     * @param outPath
+     * @param outPath  在多个任务并行时以输出路径为token来查询相关转换文件的转换进度
      * @return
      */
     public static int getProgress(String outPath){
