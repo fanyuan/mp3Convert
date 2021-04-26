@@ -53,7 +53,8 @@ MyMp3Convert
 new Thread(){
             @Override
             public void run() {
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";
+
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你convert.wav";//"temp/test123.wav";
                 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/姑娘我爱你out123.mp3";
                 Mp3ConvertUtilHelper.convertmp3(path,pathTaret);
 
@@ -66,10 +67,10 @@ String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() +
 int progress = Mp3ConvertUtilHelper.getProgress(pathTaret);
 
 带转换回调的使用示例：
-
 new Thread(){
             @Override
             public void run() {
+
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试.wav";//"temp/test123.wav";
                 String pathTaret = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "temp/out测试789.mp3";
                 Mp3ConvertUtilHelper.convertmp3(path, pathTaret, new Mp3ConvertUtil.ConvertListener() {
@@ -88,8 +89,10 @@ new Thread(){
                         Log.d("ddebug","convertByHelper02 --- convertError --- " + errorMsg);
                     }
                 });
+                
 
             }
+
         }.start();
 
 简单实用^_^
