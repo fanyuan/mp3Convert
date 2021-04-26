@@ -20,7 +20,7 @@ MyMp3Convert
 
 =====================华丽丽的分割线========================
 
-   /**
+    /**
      * wav转换成mp3
      * @param wavInPath    需要转换的wav源文件输入路径
      * @param mp3OutPath   转换完成后的mp3目标文件输出路径
