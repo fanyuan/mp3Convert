@@ -16,7 +16,7 @@ MyMp3Convert
 
  使用：
  ================================================
-只需要调用Mp3ConvertUtilHelper里的3个公开方法即可； 
+只需要调用Mp3ConvertUtilHelper里的3个公开方法即可；   
 使用很简单，只要把本module下载后以Android studio导入工程项目，设为library估其他module依赖就好  
 对于和native c语言的交互已在Mp3ConvertUtil中封装好，采用了外观模式；  
 使用时只需要调用Mp3ConvertUtilHelper类的相3个关公开方法  
